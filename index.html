@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RajKumar</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://www.bollywoodhungama.com/wp-content/uploads/2019/03/Jr-NTR.jpg');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+        .centered-name {
+            width: 70%;
+            text-align: left;
+            font-size: 2.5em;
+            color: white;
+            text-shadow: 2px 2px 30px rgba(255, 255, 255, 0.7);
+            box-sizing: border-box;
+            padding: 20px; 
+            border-radius: 10px;
+        }
+        .name-part1, .name-part2 {
+            display: block;
+            font-size: 4em;
+        }
+        .name-part1 {
+            color: red;
+        }
+        .name-part2 {
+            color: rgb(0, 0, 0);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .centered-name {
+                width: 90%;
+                font-size: 2.5em;
+            }
+            .name-part1, .name-part2 {
+                font-size: 3em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body, html {
+                justify-content: flex-end;
+            }
+            .centered-name {
+                width: 100%;
+                font-size: 2.5em;
+                position: absolute;
+                bottom: 0; 
+            }
+            .name-part1, .name-part2 {
+                font-size: 2.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="centered-name">
+        <span class="name-part1">Raj</span>
+        <span class="name-part2">Kumar</span>
+    </div>
+</body>
+</html>
