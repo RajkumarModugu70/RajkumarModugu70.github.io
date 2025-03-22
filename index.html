@@ -1,75 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RajKumar</title>
+    <title>Indian 2025 Interactive Calendar</title>
     <style>
-        body, html {
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             height: 100%;
-            width: 100%;
+            background-image: url('https://www.w3schools.com/w3images/ocean.jpg');
+            background-size: cover;
+            background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: url('https://www.bollywoodhungama.com/wp-content/uploads/2019/03/Jr-NTR.jpg');
-            background-size: cover;
-            background-position: center;
-            overflow: hidden;
-        }
-        .centered-name {
-            width: 70%;
-            text-align: left;
-            font-size: 2.5em;
             color: white;
-            text-shadow: 2px 2px 30px rgba(255, 255, 255, 0.7);
-            box-sizing: border-box;
-            padding: 20px; 
+        }
+        
+        .calendar-container {
+            background-color: rgba(0, 0, 0, 0.5);
             border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 300px;
         }
-        .name-part1, .name-part2 {
-            display: block;
-            font-size: 4em;
+        
+        .calendar-header {
+            font-size: 24px;
+            margin-bottom: 20px;
         }
-        .name-part1 {
-            color: red;
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-gap: 5px;
+            font-size: 18px;
         }
-        .name-part2 {
-            color: rgb(0, 0, 0);
+        
+        .calendar-grid div {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
         }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .centered-name {
-                width: 90%;
-                font-size: 2.5em;
-            }
-            .name-part1, .name-part2 {
-                font-size: 3em;
-            }
+        
+        .calendar-grid .today {
+            background-color: #f39c12;
+            color: black;
+            font-weight: bold;
         }
-
-        @media (max-width: 480px) {
-            body, html {
-                justify-content: flex-end;
-            }
-            .centered-name {
-                width: 100%;
-                font-size: 2.5em;
-                position: absolute;
-                bottom: 0; 
-            }
-            .name-part1, .name-part2 {
-                font-size: 2.9em;
-            }
+        
+        .calendar-grid .empty {
+            background-color: transparent;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-nav button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .calendar-nav button:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
+
 <body>
-    <div class="centered-name">
-        <span class="name-part1">Raj</span>
-        <span class="name-part2">Kumar</span>
+
+    <div class="calendar-container">
+        <div class="calendar-header" id="calendar-header"></div>
+        <div class="calendar-nav">
+            <button id="prev-month">Previous</button>
+            <button id="next-month">Next</button>
+        </div>
+        <div class="calendar-grid" id="calendar-grid"></div>
     </div>
+
+    <script>
+        const months = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+
+        function renderCalendar(month, year) {
+            const firstDay = new Date(year, month).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+            const todayDate = today.getDate();
+            const todayMonth = today.getMonth();
+            const todayYear = today.getFullYear();
+
+            // Set the header to the current month and year
+            document.getElementById('calendar-header').textContent = `${months[month]} ${year}`;
+
+            // Clear the calendar grid
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = '';
+
+            // Add empty spaces for the previous month's days
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.classList.add('empty');
+                grid.appendChild(emptyDiv);
+            }
+
+            // Add the days of the current month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.textContent = day;
+
+                // Highlight today's date
+                if (day === todayDate && month === todayMonth && year === todayYear) {
+                    dayDiv.classList.add('today');
+                }
+
+                grid.appendChild(dayDiv);
+            }
+        }
+
+        // Event listeners for navigation buttons
+        document.getElementById('prev-month').addEventListener('click', () => {
+            if (currentMonth === 0) {
+                currentMonth = 11;
+                currentYear -= 1;
+            } else {
+                currentMonth -= 1;
+            }
+            renderCalendar(currentMonth, currentYear);
+        });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+            if (currentMonth === 11) {
+                currentMonth = 0;
+                currentYear += 1;
+            } else {
+                currentMonth += 1;
+            }
+            renderCalendar(currentMonth, currentYear);
+        });
+
+        // Initial render of the calendar
+        renderCalendar(currentMonth, currentYear);
+    </script>
+
 </body>
+
 </html>
